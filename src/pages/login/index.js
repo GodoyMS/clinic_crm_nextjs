@@ -44,7 +44,7 @@ const Login = () => {
     e.preventDefault();
     await axios.post(`${backendURL}/api/v1/clinic/signin`,{email,password},{withCredentials:"include"})
       .then(({data})=>dispatch(setToken(data.token)))
-      .then(()=>axios.get(`${backendURL}/api/v1/clinic/currentUser`,{withCredentials:"include"}))
+      .then(async()=> await axios.get(`${backendURL}/api/v1/clinic/currentUser`,{withCredentials:"include"}))
       .then(({data})=>dispatch(setClinicInfo(data.user)))
       .then(()=>axios.get( `${backendURL}/api/v1/clinic/getClinicPatients`,{withCredentials:"include"}))
       .then(({data})=>dispatch(setAllPatients(data.patients)))

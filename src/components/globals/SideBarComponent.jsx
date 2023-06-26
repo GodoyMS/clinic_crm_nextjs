@@ -125,6 +125,9 @@ export default function SideBarComponent({
                   style={{ backgroundColor: "transparent" }}
                   active={selectedMain === button.name}
                   onClick={() => {
+
+
+                    
                     setSelectedMain(button.to);
                     setSelectedSettings("");
                   }}

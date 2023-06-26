@@ -1,5 +1,10 @@
+import Calendar from "@/components/calendar/Calendar";
+
 export default function Agenda(){
 
-    return (    <div>Agenda</div>
+    return (    <div>
+        
+        <Calendar/>
+    </div>
     )
 }

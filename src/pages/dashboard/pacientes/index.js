@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Table } from "flowbite-react";
 import Link from "next/link";
 import { Button } from "flowbite-react";
 import { Modal } from "flowbite-react";
-import CreateNewPatientForm from "@/components/forms/createNewPatientForm";
+import CreateNewPatientForm from "@/components/forms/CreateNewPatientForm";
 import { useSelector } from "react-redux";
 import DeletePatient from "@/components/modalBody/DeletePatient";
 import Image from "next/image";

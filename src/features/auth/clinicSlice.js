@@ -29,6 +29,14 @@ export const clinicSlice = createSlice({
         localStorage.setItem("expClinic", JSON.stringify(action.payload));
       }
     },
+    setEmailAndClinicInfo:(state,action)=>{
+      state.infoClinic.username=action.payload.username;
+      state.infoClinic.email=action.payload.email;
+      if (window !== "undefined") {
+        localStorage.setItem("infoClinic", JSON.stringify(state.infoClinic));
+      }
+
+    },
     setPatient: (state, action) => {
       if (window !== "undefined") {
         localStorage.setItem(
@@ -189,6 +197,7 @@ export const clinicSlice = createSlice({
 });
 export const {
   setClinicInfo,
+  setEmailAndClinicInfo,
   setToken,
   setExp,
   setPatient,

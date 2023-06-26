@@ -100,7 +100,7 @@ export default function SideBarComponent({
         {isMobile ? null : (
           <Box
             component={"div"}
-            className="mx-auto p-1 mt-4 rounded-lg    flex justify-center items-center text-blue-600 bg-blue-200 "
+            className="mx-auto p-1 mt-4 rounded-lg px-4    flex justify-center items-center text-blue-600 bg-blue-200 "
           >
             <ApartmentIcon className="h-12 w-12 " />
           </Box>
@@ -111,7 +111,7 @@ export default function SideBarComponent({
             {!clinicInfo
               ? `Fetching your profile...`
               : clinicInfo !== null
-              ? `Logged in as ${clinicInfo.username}`
+              ? ` ${clinicInfo.username}`
               : "You're not logged in"}
           </h1>
         )}

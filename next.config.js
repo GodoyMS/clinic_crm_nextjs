@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    backendURL: 'http://localhost:5000',
+    backendURL: process.env.BACKEND_URL,
     BASE_PATH_CLINIC:'/api/v1/clinic',
     BASE_PATH_PATIENT: '/api/v1/patient'
   },

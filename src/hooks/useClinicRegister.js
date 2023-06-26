@@ -1,15 +1,14 @@
-import { backendURL } from "@/config/config"
-import axios from "axios"
+import { backendURL } from "@/config/config";
+import axios from "axios";
 
-const useClinicRegister=async({username,email,password})=>{
-
-    try {
-      const response =  await  axios.post(`${backendURL}/clinic/signup`,{username,email,password})
-      
-
-        
-    } catch (error) {
-        
-    }
-
-}
+export const useClinicRegister = async ({
+  username,
+  email,
+  password,
+  setIsModalRegisterActive,
+}) => {
+  await axios
+    .post(`${backendURL}/api/v1/clinic/signup`, { username, email, password })
+    .then(() => setIsModalRegisterActive(true))
+    .catch((e) => console.log(e));
+};

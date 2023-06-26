@@ -13,12 +13,13 @@ import FormLoader from "../loaders/FormLoader";
 import { useDispatch } from "react-redux";
 import { deleteDoctorById, setAllDoctors } from "@/features/auth/clinicSlice";
 import Link from "next/link";
-const DoctorCardDropDown = ({ id }) => {
+import { FaUserAlt } from "react-icons/fa";
+const DoctorCardDropDown = ({ id, phone }) => {
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isdeleteSucces, setIsDeleteSucces] = useState(false);
   const [isError, setIsError] = useState(false);
-  const dispatch = useDispatch();   
+  const dispatch = useDispatch();
   const handleDeleteDoctor = async () => {
     await axios
       .delete(`${backendURL}/api/v1/clinic/doctor/deleteClinicDoctor/${id}`, {
@@ -26,14 +27,13 @@ const DoctorCardDropDown = ({ id }) => {
       })
       .then(({ data }) => dispatch(deleteDoctorById(id)))
       .then(() => setIsDeleteSucces(true))
-      .then(() => setTimeout(() => {
+      .then(() =>
+        setTimeout(() => {
           setDeleteModalOpen(false), setIsDeleteSucces(false);
         }, 2000)
       )
       .catch((e) => setIsError(true));
   };
-
-
 
   return (
     <>
@@ -86,20 +86,26 @@ const DoctorCardDropDown = ({ id }) => {
           style={{ top: "110%" }}
           className="rounded-md w-full  bg-gray-100 shadow-2xl   absolute z-50  overflow-visible "
         >
-          <Link href={`/dashboard/profesionales/${id}`} className=" flex gap-2 justify-start  whitespace-normal text-gray-600 focus:outline-none focus:text-gray-200 text-xs w-full hover:bg-gray-200 py-4 px-4 cursor-pointer ">
-            <BsWhatsapp className="w-4 h-4 " />
+          <Link
+            href={`/dashboard/profesionales/${id}`}
+            className=" flex gap-2 justify-start  whitespace-normal text-gray-600 focus:outline-none focus:text-gray-800 focus:bg-gray-300 text-xs w-full hover:bg-gray-200 py-4 px-4 cursor-pointer "
+          >
+            <FaUserAlt className="w-4 h-4 " />
             <p className=" break-words ">Perfil</p>
           </Link>
-          <div className=" flex gap-2 justify-start whitespace-normal text-gray-600 focus:outline-none focus:text-gray-200 text-xs w-full hover:bg-gray-200 py-4 px-4 cursor-pointer ">
-            <BsClockHistory className="w-4 h-4 " />
-            <p>Postergar cita </p>
-          </div>
+          <Link
+            href={`https://api.whatsapp.com/send?phone=${phone}`} target="_blank"   rel="noreferrer"
+            className=" flex gap-2 justify-start whitespace-normal text-gray-600 focus:outline-none focus:text-gray-800 focus:bg-gray-300 text-xs w-full hover:bg-gray-200 py-4 px-4 cursor-pointer "
+          >
+            <BsWhatsapp className="w-4 h-4 " />
+            <p>Contactar</p>
+          </Link>
           <button
             onClick={() => {
               setDeleteModalOpen(true);
               setIsButtonActive(false);
             }}
-            className="flex gap-2 justify-start whitespace-normal rounded-b-md items-center focus:outline-none focus:text-red-100 text-gray-600 hover:bg-gray-200 text-xs w-full  py-4 px-4 cursor-pointer "
+            className="flex gap-2 justify-start whitespace-normal rounded-b-md items-center focus:outline-none focus:text-red-100 text-gray-600 hover:bg-gray-800  focus:bg-gray-300 text-xs w-full  py-4 px-4 cursor-pointer "
           >
             <BsFillTrash3Fill className="w-4 h-4" /> <p>Eliminar doctor</p>
           </button>

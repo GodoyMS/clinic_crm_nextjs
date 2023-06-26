@@ -24,7 +24,7 @@ export function updateAuth(event,email, username, dispatch, setOpenToast) {
       });
   }
 
-export function getAuthData(setEmail,setUsername){
+export function  getAuthData(setEmail,setUsername){
     axios.get( `${process.env.backendURL}${process.env.BASE_PATH_CLINIC}/getAuthData` ,{withCredentials:'include'})
     .then(({data})=>data.authData)
     .then((auth)=>{

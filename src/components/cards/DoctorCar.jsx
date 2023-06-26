@@ -1,6 +1,7 @@
 import React from "react";
 import DoctorCardDropDown from "../dropDowns/DoctorCardDropDown";
 import Image from "next/image";
+import Link from "next/link";
 
 const DoctorCar = ({  data }) => {
   return (
@@ -8,7 +9,7 @@ const DoctorCar = ({  data }) => {
       key={data._id}
       className="mx-auto flex flex-col w-full  justify-start bg-white  rounded-2xl  shadow-lg"
     >
-      <div   className=" rounded-t-lg w-full h-auto   mx-auto">
+      <Link href={`/dashboard/profesionales/${data._id}`}   className=" rounded-t-lg w-full h-auto   mx-auto">
         <Image
           width={600}
           height={900}
@@ -18,11 +19,11 @@ const DoctorCar = ({  data }) => {
           alt="profile picture"
           srcset=""
         />
-      </div>
+      </Link>
       <div className="px-8 py-10 flex-1 flex flex-col ">
         <div className="flex relative items-center justify-between">
           <span className="text-gray-400 text-sm">2d ago</span>
-          <DoctorCardDropDown id={data._id}/>
+          <DoctorCardDropDown phone={data.phone} id={data._id}/>
       
         </div>
 

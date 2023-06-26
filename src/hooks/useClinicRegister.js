@@ -8,7 +8,7 @@ export const useClinicRegister = async ({
   setIsModalRegisterActive,
 }) => {
   await axios
-    .post(`${backendURL}/api/v1/clinic/signup`, { username, email, password })
+    .post(`${backendURL}/api/v1/clinic/signup`, { username, email, password },{withCredentials:"include"})
     .then(() => setIsModalRegisterActive(true))
     .catch((e) => console.log(e));
 };

@@ -113,7 +113,7 @@ const Paciente = () => {
       id: "4",
     },
   ];
-  const router = useRouter();
+    const router = useRouter();
   const id = router.query.id;
   const [isLoading, setIsLoading] = useState(false);
   const patients = useSelector((state) => state.clinic.patients);
@@ -165,7 +165,7 @@ const Paciente = () => {
         <>
           {selectedTab === tabs[0].id && <Info data={currentPatient} />}
           {selectedTab === tabs[1].id && (
-            <ClinicHistory data={currentPatient} />
+            <ClinicHis  tory data={currentPatient} />
           )}
           {selectedTab === tabs[2].id && <Odontogram data={currentPatient} />}
           {selectedTab === tabs[3].id && <Consent data={currentPatient} />}

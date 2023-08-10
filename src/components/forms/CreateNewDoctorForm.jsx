@@ -200,7 +200,7 @@ const CreateNewDoctorForm = ({ closeModal }) => {
                   Subir foto de presentación (Opcional)
                 </label>
                 <input
-                accept="image/png, image/jpeg,image/svg,image/jpg,image/avif"
+                accept="image/png, image/jpeg,image/svg,image/jpg,image/avif,image/webp"
                   onChange={handleImageUpload}
                   placeholder="ffsd"
                   class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-blue-50 "

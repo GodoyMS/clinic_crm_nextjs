@@ -3,28 +3,40 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { BsFillTrash3Fill } from "react-icons/bs";
+import {
+  BsChevronLeft,
+  BsChevronRight,
+  BsFillTrash3Fill,
+} from "react-icons/bs";
 
 import { BsThreeDots, BsFillFunnelFill } from "react-icons/bs";
 import TableSkeleton from "../skeletons/TableSkeleton";
 import AppointmentCard from "../cards/AppointmentCard";
 import CustomModal from "../customModal/CustomModal";
 const AppointmentsTable = () => {
+  
+  const [page, setPage] = useState(1);
+  const [appointments, setAppointments] = useState(null);
+  const [isFetchLoading, setIsFetchLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSortActive, setIsSortActive] = useState(false);
+  const [
+    deleteManyAppointmentsModalOpen,
+    setDeleteManyAppointmentsModalOpen,
+  ] = useState(false);
+  const [isDeleteManySuccess, setDeleteManySuccess] = useState(false);
+  const [selectedAppointmentIds, setSelectedAppointmentIds] = useState([]);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPrevPage, setHasPrevPage] = useState(false);
+  const [totalDocs, setTotalDocs] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const tabs = [
     { id: 0, name: "Este mes" },
     { id: 1, name: "Hoy" },
     { id: 2, name: "Todo" },
   ];
+  const [currentTab, setCurrentTab] = useState(tabs[2].name);
 
-  const [appointments, setAppointments] = useState(null);
-  const [currentTab, setCurrentTab] = useState(tabs[0].name);
-  const [isFetchLoading, setIsFetchLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isSortActive, setIsSortActive] = useState(false);
-  const [deleteManyAppointmentsModalOpen, setDeleteManyAppointmentsModalOpen] =
-    useState(false);
-  const [isDeleteManySuccess, setDeleteManySuccess] = useState(false);
-  const [selectedAppointmentIds, setSelectedAppointmentIds] = useState([]);
   const handleCheckboxChange = (id) => {
     if (selectedAppointmentIds.includes(id)) {
       setSelectedAppointmentIds(
@@ -38,14 +50,23 @@ const AppointmentsTable = () => {
   useEffect(() => {
     setIsFetchLoading(true);
     axios
-      .get(`${backendURL}/api/v1/clinic/appointment/getClinicAppointments`, {
-        withCredentials: "include",
+      .get(
+        `${backendURL}/api/v1/clinic/appointment/getClinicAppointments?limit=10&page=${page}`,
+        {
+          withCredentials: "include",
+        }
+      )
+      .then(({ data }) => {
+        setAppointments(data.appointments);
+        setHasNextPage(data?.hasNextPage);
+        setHasPrevPage(data?.hasPrevPage);
+        setTotalDocs(data?.totalDocs);
+        setTotalPages(data?.totalPages);
       })
-      .then(({ data }) => setAppointments(data.appointments))
       .then(() => setIsFetchLoading(false))
       .catch((e) => setIsError(true))
       .finally(() => setIsFetchLoading(false));
-  }, []);
+  }, [page]);
 
   const handleSortUp = () => {
     if (appointments) {
@@ -69,16 +90,29 @@ const AppointmentsTable = () => {
   };
 
   const handleDeleteAppointment = async () => {
-    await axios.post(
-      `${backendURL}/api/v1/clinic/appointment/deleteManyClinicAppointments `,{appointmentsIds:selectedAppointmentIds},
-      { withCredentials: "include" }
-    ).then(()=>setDeleteManySuccess(true))
-    .then(()=>setAppointments(appointments.filter(obj=>!selectedAppointmentIds.includes(obj._id))))
-    .then(()=>setTimeout(()=>{setDeleteManyAppointmentsModalOpen(false);setDeleteManySuccess(false)},1000))
-    .then(()=>setSelectedAppointmentIds([]))    
-    
-    .catch((e)=>console.log(e))
-    
+    await axios
+      .post(
+        `${backendURL}/api/v1/clinic/appointment/deleteManyClinicAppointments `,
+        { appointmentsIds: selectedAppointmentIds },
+        { withCredentials: "include" }
+      )
+      .then(() => setDeleteManySuccess(true))
+      .then(() =>
+        setAppointments(
+          appointments.filter(
+            (obj) => !selectedAppointmentIds.includes(obj._id)
+          )
+        )
+      )
+      .then(() =>
+        setTimeout(() => {
+          setDeleteManyAppointmentsModalOpen(false);
+          setDeleteManySuccess(false);
+        }, 1000)
+      )
+      .then(() => setSelectedAppointmentIds([]))
+
+      .catch((e) => console.log(e));
   };
   if (isFetchLoading) {
     return (
@@ -164,17 +198,15 @@ const AppointmentsTable = () => {
 
           <div className="flex justify-end gap-2">
             <div>
-              {selectedAppointmentIds.length>0 && (
-                 <button
-                 onClick={() => setDeleteManyAppointmentsModalOpen(true)}
-                 className="py-3 px-4 items-center flex gap-2 text-sm font-medium leading-none text-red-600 bg-red-200 hover:bg-red-300 cursor-pointer rounded"
-               >
-                 <BsFillTrash3Fill className="w-4 h-4" />
-                 Eliminar
-               </button>
-
+              {selectedAppointmentIds.length > 0 && (
+                <button
+                  onClick={() => setDeleteManyAppointmentsModalOpen(true)}
+                  className="py-3 px-4 items-center flex gap-2 text-sm font-medium leading-none text-red-600 bg-red-200 hover:bg-red-300 cursor-pointer rounded"
+                >
+                  <BsFillTrash3Fill className="w-4 h-4" />
+                  Eliminar
+                </button>
               )}
-             
             </div>
             <div className="relative  ">
               <button
@@ -233,7 +265,7 @@ const AppointmentsTable = () => {
           </Link>
         </div>
         <div className="mt-7 overflow-x-auto pb-40 ">
-          <table className="w-full whitespace-nowrap">
+         {isFetchLoading ? <TableSkeleton/> :  <table className="w-full whitespace-nowrap">
             <tbody>
               {currentTab === tabs[0].name &&
                 appointments &&
@@ -291,7 +323,31 @@ const AppointmentsTable = () => {
                   />
                 ))}
             </tbody>
-          </table>
+          </table>}
+
+          {appointments?.length > 0 && (
+            <div className="flex justify-between max-w-xs mx-auto mt-4 text-gray-700 text-xs font-sans w-full items-center">
+              {hasPrevPage ? (
+                <button onClick={() => setPage(page - 1)}>
+                  <BsChevronLeft className=" cursor-pointer" />
+                </button>
+              ) : (
+                <div></div>
+              )}
+              <span className=" text-gray-400">
+                pág {page} de {totalPages}
+              </span>
+
+              {hasNextPage ? (
+                <BsChevronRight
+                  className=" cursor-pointer text-indigo-500 hover:text-indigo-600"
+                  onClick={() => setPage(page + 1)}
+                />
+              ) : (
+                <div></div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -32,8 +32,8 @@ const LayoutDashboard = ({ children }) => {
             const tokenClinic=JSON.parse(localStorage.getItem('tokenClinic'))
             const exp=JSON.parse(localStorage.getItem('expClinic'));
             const appointmentsClinic=JSON.parse(localStorage.getItem('appointmentsClinic'));
-            const test=JSON.parse(localStorage.getItem('appointmentsClinic')).length;
-            console.log(test*10000)
+            // const test=JSON.parse(localStorage.getItem('appointmentsClinic')).length;
+            // console.log(test*10000)
 
             dispatch(initializeState({
               patients:patients,

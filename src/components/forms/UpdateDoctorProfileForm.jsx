@@ -11,12 +11,12 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { backendURL } from "@/config/config";
 
-const UpdateDoctorProfileForm = ({ open, onClose, profileUrl,idDoctor }) => {
+const UpdateDoctorProfileForm = ({ open, onClose, profileUrl, idDoctor }) => {
   const [base64Image, setBase64Image] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isFormSuccess, setIsFormSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
-const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -29,8 +29,7 @@ const dispatch=useDispatch();
   };
 
   const resetValues = () => {
-    setBase64Image("");   
-
+    setBase64Image("");
   };
 
   const handleSubmit = async (e) => {
@@ -40,20 +39,26 @@ const dispatch=useDispatch();
 
       .put(
         `${backendURL}/api/v1/clinic/doctor/updateClinicDoctorProfileImage/${idDoctor}`,
-        {profileImage:base64Image },
+        { profileImage: base64Image },
         { withCredentials: "include" }
       )
-      .then(({ data }) => {console.log(data);dispatch(updateDoctorById(data.doctor))})
+      .then(({ data }) => {
+        console.log(data);
+        dispatch(updateDoctorById(data.doctor));
+      })
       .then(() => setIsLoading(false))
       .then(() => setIsFormSuccess(true))
       .then(() => resetValues())
 
-      .then(() => setTimeout(() => {onClose();setIsFormSuccess(false)}, 2000))
+      .then(() =>
+        setTimeout(() => {
+          onClose();
+          setIsFormSuccess(false);
+        }, 2000)
+      )
       .catch((e) => setIsError(true))
       .finally(() => setIsLoading(false));
   };
-
-
 
   return (
     <CustomModal
@@ -100,43 +105,40 @@ const dispatch=useDispatch();
             </button>
           </div>
         )}
-           {base64Image === "" && (
-        <Image
-          width={900}
-          height={1000}
-          src={profileUrl}
-          className="w-full h-full object-contain"
-          alt="Imagen doctor"
-        />
-      )}
-       {isFormSuccess && !isLoading && (
-                <button
-                  disabled={true}
-                  className=" bg-green-400 w-full  hover:bg-blue-dark flex justify-center gap-3 text-white font-bold py-3 px-6 rounded-lg mt-3 "
-                >
-                  Actualizado
-                  <CheckCircleIcon className="w-6 h-6" />
-                </button>
-              )}
+        {base64Image === "" && (
+          <Image
+            width={900}
+            height={1000}
+            src={profileUrl}
+            className="w-full h-full object-contain"
+            alt="Imagen doctor"
+          />
+        )}
+        {isFormSuccess && !isLoading && (
+          <button
+            disabled={true}
+            className=" bg-green-400 w-full  hover:bg-blue-dark flex justify-center gap-3 text-white font-bold py-3 px-6 rounded-lg mt-3 "
+          >
+            Actualizado
+            <CheckCircleIcon className="w-6 h-6" />
+          </button>
+        )}
 
-              {!isFormSuccess && (
-                <button
-                  type="submit"
-                  className=" w-full bg-blue-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-blue-700 transition ease-in-out duration-300"
-                >
-                  {isLoading ? (
-                    <div className="w-full flex justify-center">
-                      <FormLoader colour={"#FFFF"} className={" w-40 h-8   "} />
-                    </div>
-                  ) : (
-                    "Actualizar "
-                  )}
-                </button>
-              )}
-
+        {!isFormSuccess && (
+          <button
+            type="submit"
+            className=" w-full bg-blue-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-blue-700 transition ease-in-out duration-300"
+          >
+            {isLoading ? (
+              <div className="w-full flex justify-center">
+                <FormLoader colour={"#FFFF"} className={" w-40 h-8   "} />
+              </div>
+            ) : (
+              "Actualizar "
+            )}
+          </button>
+        )}
       </form>
-
-   
     </CustomModal>
   );
 };

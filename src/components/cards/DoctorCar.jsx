@@ -23,7 +23,7 @@ const DoctorCar = ({  data }) => {
       <div className="px-8 py-10 flex-1 flex flex-col ">
         <div className="flex relative items-center justify-between">
           <span className="text-gray-400 text-sm">2d ago</span>
-          <DoctorCardDropDown phone={data.phone} id={data._id}/>
+          <DoctorCardDropDown phone={data?.phone} id={data._id}/>
       
         </div>
 
@@ -31,6 +31,9 @@ const DoctorCar = ({  data }) => {
           <h2 className="text-gray-600 font-bold text-2xl tracking-wide">
             {data.names}
           </h2>
+        </div>
+        <div className=" py-2">
+          <p className=" text-gray-500">{data?.job}</p>
         </div>
 
         <div className="mt-8 flex-1 flex justify-end flex-col">

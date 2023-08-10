@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+  import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import {  useEffect, useState } from "react";
@@ -44,14 +44,14 @@ const Login = () => {
     e.preventDefault();
     await axios.post(`${backendURL}/api/v1/clinic/signin`,{email,password},{withCredentials:"include"})
       .then(({data})=>dispatch(setToken(data.token)))
-      .then(async()=> await axios.get(`${backendURL}/api/v1/clinic/currentUser`,{withCredentials:true}))
+      .then(async()=> await axios.get(`${backendURL}/api/v1/clinic/currentUser`,{withCredentials:'include'}))
       .then(({data})=>dispatch(setClinicInfo(data.user)))
       .then(()=>axios.get( `${backendURL}/api/v1/clinic/getClinicPatients`,{withCredentials:"include"}))
       .then(({data})=>dispatch(setAllPatients(data.patients)))
       .then(()=>axios.get( `${backendURL}/api/v1/clinic/doctor/getClinicDoctors`,{withCredentials:"include"}))
       .then(({data})=>dispatch(setAllDoctors(data.doctors)))
-      .then(()=>axios.get( `${backendURL}/api/v1/clinic/appointment/getClinicAppointments`,{withCredentials:"include"}))
-      .then(({data})=>dispatch(setAllAppointments(data.appointments)))
+      // .then(()=>axios.get( `${backendURL}/api/v1/clinic/appointment/getClinicAppointments`,{withCredentials:"include"}))
+      // .then(({data})=>dispatch(setAllAppointments(data.appointments)))
 
 
       .then(()=>router.push("/dashboard"))

@@ -93,19 +93,23 @@ const DoctorCardDropDown = ({ id, phone }) => {
             <FaUserAlt className="w-4 h-4 " />
             <p className=" break-words ">Perfil</p>
           </Link>
-          <Link
-            href={`https://api.whatsapp.com/send?phone=${phone}`} target="_blank"   rel="noreferrer"
-            className=" flex gap-2 justify-start whitespace-normal text-gray-600 focus:outline-none focus:text-gray-800 focus:bg-gray-300 text-xs w-full hover:bg-gray-200 py-4 px-4 cursor-pointer "
-          >
-            <BsWhatsapp className="w-4 h-4 " />
-            <p>Contactar</p>
-          </Link>
+          {phone && (
+            <Link
+              href={`https://api.whatsapp.com/send?phone=${phone}`}
+              target="_blank"
+              rel="noreferrer"
+              className=" flex gap-2 justify-start whitespace-normal text-gray-600 focus:outline-none focus:text-gray-800 focus:bg-gray-300 text-xs w-full hover:bg-gray-200 py-4 px-4 cursor-pointer "
+            >
+              <BsWhatsapp className="w-4 h-4 " />
+              <p>Contactar</p>
+            </Link>
+          )}
           <button
             onClick={() => {
               setDeleteModalOpen(true);
               setIsButtonActive(false);
             }}
-            className="flex gap-2 justify-start whitespace-normal rounded-b-md items-center focus:outline-none focus:text-red-100 text-gray-600 hover:bg-gray-800  focus:bg-gray-300 text-xs w-full  py-4 px-4 cursor-pointer "
+            className="flex gap-2 justify-start whitespace-normal rounded-b-md items-center focus:outline-none focus:text-red-100 text-gray-600 hover:bg-gray-800 hover:text-white  focus:bg-gray-300 text-xs w-full  py-4 px-4 cursor-pointer "
           >
             <BsFillTrash3Fill className="w-4 h-4" /> <p>Eliminar doctor</p>
           </button>

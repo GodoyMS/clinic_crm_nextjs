@@ -1,7 +1,7 @@
 import { backendURL } from "@/config/config";
 import axios from "axios";
 
-export const useClinicRegister = async ({
+export const  useClinicRegister = async ({
   username,
   email,
   password,

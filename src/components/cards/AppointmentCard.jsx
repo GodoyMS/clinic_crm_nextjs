@@ -8,7 +8,7 @@ import { BsThreeDots, BsFillFunnelFill } from "react-icons/bs";
 
 import AppointmentDropDown from "../dropDowns/AppointmentDropDown";
 
-const AppointmentCard = ({
+const AppointmentCard = React.memo( ({
   e,
   appointments,
   setAppointments,
@@ -31,21 +31,21 @@ const AppointmentCard = ({
               checked={selectedAppointmentIds.includes(e._id)}
               onChange={onChangeSelectedAppointmentId}
               name="bordered-checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
           </div>
         </td>
         <td className="">
           <div className="flex items-center pl-5 ">
             <Link
-              href={`/dashboard/pacientes/${e.patient._id}`}
+              href={`/dashboard/pacientes/${e?.patient?._id}`}
               className="text-base bg-blue-50 rounded-md px-2 py-2 font-medium leading-none text-gray-700 mr-2"
             >
-              {e.patient.names}
+              {e?.patient?.names ? e?.patient?.names : "Paciente Eliminado"}
             </Link>
           </div>
           <div className="flex items-center gap-2 mt-5 pl-5">
-            <Image
+           {e?.doctor &&  <Image
             alt="doctor"
               src={
                 e.doctor.sex === "Hombre"
@@ -55,16 +55,16 @@ const AppointmentCard = ({
               width={200}
               height={200}
               className=" object-contain w-8 h-8"
-            />
+            />}
             <p className="text-base font-normal leading-none text-gray-700 mr-2">
-              {e.doctor.names}
+              {e?.doctor?.names ? e?.doctor?.names : "Doctor eliminado"}
             </p>
           </div>
         </td>
         <td className="pl-24">
           <div className="flex items-center">
             <p className="text-sm leading-none text-gray-600 ml-2">
-              {e.reason}
+              {e?.reason}
             </p>
           </div>
         </td>
@@ -78,7 +78,7 @@ const AppointmentCard = ({
             }  py-3 px-3 text-sm leading-none text-gray-700  rounded focus:outline-none relative `}
           >
             <Moment locale="es" format="  DD MMMM - hh:mm a ">
-              {e.dateStart}
+              {e?.dateStart}
             </Moment>{" "}
             {new Date() > new Date(e.dateStart) && (
               <div
@@ -103,6 +103,6 @@ const AppointmentCard = ({
       </tr>
     </>
   );
-};
+});
 
 export default AppointmentCard;

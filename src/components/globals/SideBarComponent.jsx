@@ -81,29 +81,35 @@ export default function SideBarComponent({
         width={isMobile ? "60px" : "220px"}
       >
         {!isMobile && (
-          <button
+          <div className=" px-2">
+            <button
             onClick={() => setIsMobile(true)}
             className=" w-full p-2 my-0.5 py-1 rounded-lg  bg-slate-200"
           >
             <AlignHorizontalRightIcon className=" " />{" "}
           </button>
+          </div>
         )}
         {isMobile && (
-          <Box
+          <div className=" px-1 pt-1">
+            <Box
             component="button"
             onClick={() => setIsMobile(false)}
             className=" w-full p-2 hover:bg-slate-300  rounded-lg  bg-slate-200"
           >
             <MenuIcon />{" "}
           </Box>
+          </div>
         )}
         {isMobile ? null : (
-          <Box
+          <div className=" px-2">
+            <Box
             component={"div"}
-            className="mx-auto p-1 mt-4 rounded-lg px-4    flex justify-center items-center text-blue-600 bg-blue-200 "
+            className="mx-auto p-1 mt-4 rounded-lg px-4   flex justify-center items-center text-blue-600 bg-blue-200 "
           >
-            <ApartmentIcon className="h-12 w-12 " />
+            <ApartmentIcon className="h-12 w-12  " />
           </Box>
+          </div>
         )}
 
         {isMobile ? null : (
@@ -116,13 +122,14 @@ export default function SideBarComponent({
           </h1>
         )}
 
-        <Menu className="py-8">
+        <Menu className={`py-8 ${isMobile ? "":"px-1"}`}>
           {isMobile ? null : <h3 className="px-4 text-gray-400">Principal</h3>}
           <div>
             {principalButtons.map((button) => (
-              <div className="relative" key={button.key}>
+              <div className="relative " key={button.key}>
                 <MenuItem
-                  style={{ backgroundColor: "transparent" }}
+                  style={{ backgroundColor: "transparent"}}
+                  
                   active={selectedMain === button.name}
                   onClick={() => {
 

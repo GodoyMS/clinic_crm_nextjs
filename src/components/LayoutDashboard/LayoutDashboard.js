@@ -118,7 +118,7 @@ const LayoutDashboard = ({ children }) => {
 
 
         <main className={` h-full  ${isMobile ? ' ml-20  ' : ' ml-64'}`} >
-        <TopbarComponent />
+        <TopbarComponent handleLogout={handleLogout}/>
         <div  className="px-2 md:px-8 ">
             {children}
         </div>

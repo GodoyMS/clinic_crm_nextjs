@@ -10,7 +10,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
-const TopbarComponent = () => {
+const TopbarComponent = ({handleLogout}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -32,7 +32,7 @@ const TopbarComponent = () => {
 
       {/* ICONS */}
       <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
+        {/* <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
@@ -44,8 +44,8 @@ const TopbarComponent = () => {
         </IconButton>
         <IconButton>
           <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
+        </IconButton> */}
+        <IconButton onClick={handleLogout}>
           <PersonOutlinedIcon />
         </IconButton>
       </Box>

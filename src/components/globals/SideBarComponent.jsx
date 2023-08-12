@@ -53,7 +53,7 @@ export default function SideBarComponent({
       icon: EditLocationAltIcon,
       key: 3,
     },
-    { name: "Costos", to: "/dashboard/costos", icon: CalculateIcon, key: 4 },
+    // { name: "Costos", to: "/dashboard/costos", icon: CalculateIcon, key: 4 },
   ];
   const settingsButtons = [
     {

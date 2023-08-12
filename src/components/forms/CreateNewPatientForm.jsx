@@ -60,13 +60,18 @@ const CreateNewPatientForm = ({ closeModal }) => {
         <input
           required
           value={dni}
-          maxLength={8}
           type="number"
-          onChange={(prev) => setDni(prev.target.value)}
+          onChange={(event) => {
+            const newValue = event.target.value;
+            if (newValue.length <= 8) {
+              setDni(newValue);
+            }
+          }}
           name="dni"
           id="dni"
           placeholder="Dni"
           minLength={8}
+          maxLength={8}
           className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
         />
       </div>

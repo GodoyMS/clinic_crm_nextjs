@@ -8,7 +8,7 @@ import { clinicStore } from "@/store/clinicStore";
 
 export default function MyApp({ Component, pageProps,router }) {
 const getLayout = () => {
-    if (router.pathname !== '/' && router.pathname !== '/login' && router.pathname !== '/register' ) {
+    if (router.pathname !== '/' && router.pathname !== '/login' && router.pathname !== '/register' && router.pathname !== '/contacto' && !router.pathname.startsWith("/formsuccess") ) {
       return <Provider store={clinicStore}><ProSidebarProvider><LayoutDashboard><Component {...pageProps} /></LayoutDashboard></ProSidebarProvider></Provider>;
     }  else {
       return <Provider store={clinicStore}><LayoutMain><Component {...pageProps} /></LayoutMain></Provider>;

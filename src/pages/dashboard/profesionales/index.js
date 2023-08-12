@@ -8,8 +8,9 @@ import DoctorCar from "@/components/cards/DoctorCar";
 
 const Profesionales = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isOpenModalDeletePatient, setIsOpenModalDeletePatient] =
-    useState(false);
+  const [isOpenModalDeletePatient, setIsOpenModalDeletePatient] = useState(
+    false
+  );
   const [patientIDToBeDeleted, setPatientIDTobeDeleted] = useState("");
   const doctors = useSelector((state) => state.clinic.doctors);
 
@@ -39,14 +40,11 @@ const Profesionales = () => {
         </Modal> */}
       </React.Fragment>
       {doctors && (
-
-           <div  className=" max-w-7xl mx-auto grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 justify-center flex-wrap py-20  ">
-          {doctors.map(( doctor)=>( <DoctorCar data={doctor}  />
-))}
+        <div className=" max-w-7xl mx-auto grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 justify-center flex-wrap py-20  ">
+          {doctors.map((doctor) => (
+            <DoctorCar data={doctor} />
+          ))}
         </div>
-
-
-       
       )}
     </div>
   );

@@ -8,9 +8,8 @@ import {
   MdWhatsapp,
 } from "react-icons/md";
 import Head from "next/head";
-import { FaFacebookF,FaInstagram,FaLinkedinIn,FaTiktok,FaYoutube,FaTwitter, FaWhatsapp, FaMailchimp } from "react-icons/fa";
+import { FaFacebookF,FaInstagram,FaLinkedinIn,FaTiktok,FaYoutube,FaTwitter, FaWhatsapp, FaMailchimp, FaMailBulk } from "react-icons/fa";
 import Link from "next/link";
-import { BiLogoGmail } from "react-icons/bi";
 
 const Index = () => {
   const [name, setName] = useState("");
@@ -47,7 +46,7 @@ const Index = () => {
   const socialMediaLinks=[
     {id:0,icon:FaFacebookF,link:"https://www.facebook.com/profile.php?id=100095348792128"},
     {id:1,icon:FaWhatsapp,link:"https://api.whatsapp.com/send?phone=51961442547"},
-    {id:2,icon:BiLogoGmail,link:"mailto:pascojobsperu@gmail.com"},
+    {id:2,icon:FaMailBulk,link:"mailto:pascojobsperu@gmail.com"},
 
 
 

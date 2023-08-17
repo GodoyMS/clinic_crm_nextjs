@@ -94,6 +94,8 @@ const AppointmentCard = React.memo( ({
         <td>
           <div className=" relative px-10 pt-2">
             <AppointmentDropDown
+              doctor={e?.doctor}
+              patient={e?.patient}
               appointments={appointments}
               setAppointments={setAppointments}
               id={e._id}

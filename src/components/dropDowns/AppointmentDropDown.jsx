@@ -10,7 +10,11 @@ import { Modal } from "flowbite-react";
 import axios from "axios";
 import { backendURL } from "@/config/config";
 import FormLoader from "../loaders/FormLoader";
-const AppointmentDropDown = ({ id, setAppointments, appointments }) => {
+import Link from "next/link";
+import { FaUser } from "react-icons/fa";
+import Image from "next/image";
+import { TbUserCheck } from "react-icons/tb";
+const AppointmentDropDown = ({ id, setAppointments, appointments,doctor,patient }) => {
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const[isdeleteSucces,setIsDeleteSucces]=useState(false)
@@ -30,8 +34,8 @@ const AppointmentDropDown = ({ id, setAppointments, appointments }) => {
       .then(()=>setTimeout(()=>{setDeleteModalOpen(false),setIsDeleteSucces(false)},1000))
       .catch((e)=>setIsError(true))
 
-  };
-
+  };  
+  console.log(doctor)
   return (
     <>
       <CustomModal
@@ -79,14 +83,23 @@ const AppointmentDropDown = ({ id, setAppointments, appointments }) => {
 
       {isButtonActive && (
         <div key={id} className="rounded-md bg-white shadow w-full absolute z-50 right-0 overflow-visible ">
-          <div className=" flex gap-2 justify-start  whitespace-normal text-gray-600 focus:outline-none focus:text-gray-200 text-xs w-full hover:bg-gray-50 py-4 px-4 cursor-pointer ">
-            <BsWhatsapp className="w-4 h-4 " />
-            <p className=" break-words ">Informar paciente</p>
-          </div>
-          <div className=" flex gap-2 justify-start whitespace-normal text-gray-600 focus:outline-none focus:text-gray-200 text-xs w-full hover:bg-gray-50 py-4 px-4 cursor-pointer ">
-            <BsClockHistory className="w-4 h-4 " />
-            <p>Postergar cita </p>
-          </div>
+            <Link href={`/dashboard/pacientes/${patient?._id}`} className=" flex gap-2 justify-start  whitespace-normal text-gray-600 focus:outline-none focus:text-gray-200 text-xs w-full hover:bg-gray-50 py-4 px-4 cursor-pointer ">
+              <TbUserCheck className="w-6 h-6 " />
+              <p className=" break-words ">Ver paciente</p>
+            </Link>
+          <Link href={`/dashboard/profesionales/${doctor?._id}`} className=" flex gap-2 justify-start whitespace-normal text-gray-600 focus:outline-none focus:text-gray-200 text-xs w-full hover:bg-gray-50 py-4 px-4 cursor-pointer ">
+          <Image
+            alt="doctor"
+              src={
+                doctor.sex === "Hombre"
+                  ? "/assets/icons/dentistMale.png"
+                  : "/assets/icons/dentistFemale.png"
+              }
+              width={200}
+              height={200}
+              className=" object-contain w-8 h-8"
+            />            <p>Ver Doctor</p>
+          </Link>
           <button
             onClick={() => {setDeleteModalOpen(true);setIsButtonActive(false)}}
             className="flex gap-2 justify-start whitespace-normal rounded-b-md items-center focus:outline-none focus:text-red-100 bg-red-500 text-white text-xs w-full hover:bg-red-700 py-4 px-4 cursor-pointer hover:text-white"

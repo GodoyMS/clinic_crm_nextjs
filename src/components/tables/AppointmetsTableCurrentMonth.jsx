@@ -14,7 +14,7 @@ import TableSkeleton from "../skeletons/TableSkeleton";
 import AppointmentCard from "../cards/AppointmentCard";
 import CustomModal from "../customModal/CustomModal";
 import { FaLongArrowAltRight } from "react-icons/fa";
-const AppointmetsTableCurrentMonth = () => {
+const   AppointmetsTableCurrentMonth = () => {
   
   const [page, setPage] = useState(1);
   const [appointments, setAppointments] = useState(null);
@@ -151,7 +151,46 @@ const AppointmetsTableCurrentMonth = () => {
 
   return (
     <div className="sm:px-6 w-full">
-      
+         <CustomModal
+        title={"Eliminar paciente"}
+        open={deleteManyAppointmentsModalOpen}
+        onClose={() => setDeleteManyAppointmentsModalOpen(false)}
+      >
+        <p>¿Estás seguro de eliminar {selectedAppointmentIds.length} citas?</p>
+        <span className="text-gray-500 text-sm">
+          Esta acción es irreversible
+        </span>
+
+        <div className="flex gap-4 justify-center py-8">
+          <button
+            disabled={isDeleteManySuccess}
+            onClick={handleDeleteAppointment}
+            className={` ${
+              isDeleteManySuccess
+                ? "bg-green-500"
+                : "bg-blue-600 hover:bg-blue-70 "
+            }  text-white font-bold py-3 px-6 rounded-lg mt-3 0 transition ease-in-out duration-300`}
+          >
+            {!isDeleteManySuccess && "Eliminar "}
+            {isDeleteManySuccess && "Eliminado"}
+          </button>
+
+          {!isDeleteManySuccess && (
+            <button
+              onClick={() => setDeleteManyAppointmentsModalOpen(false)}
+              className=" bg-gray-100 hover:bg-blue-dark text-gray-700 font-bold py-3 px-6 rounded-lg mt-3 hover:bg-gray-500 hover:text-gray-50 transition ease-in-out duration-300"
+            >
+              Cancelar
+            </button>
+          )}
+        </div>
+        {isError && (
+          <div className="text-gray-600 text-center">Ocurrio un error</div>
+        )}
+      </CustomModal>
+
+
+
       <div className="px-4 md:px-10 py-4 md:py-7">
         <div className="flex items-center justify-between">
           <h2
@@ -162,6 +201,18 @@ const AppointmetsTableCurrentMonth = () => {
           </h2>
 
           <div className="flex justify-end gap-2">
+
+          <div>
+              {selectedAppointmentIds.length > 0 && (
+                <button
+                  onClick={() => setDeleteManyAppointmentsModalOpen(true)}
+                  className="py-3 px-4 items-center flex gap-2 text-sm font-medium leading-none text-red-600 bg-red-200 hover:bg-red-300 cursor-pointer rounded"
+                >
+                  <BsFillTrash3Fill className="w-4 h-4" />
+                  Eliminar
+                </button>
+              )}
+            </div>
             
             <div className="relative  ">
               <button

@@ -165,7 +165,7 @@ const Paciente = () => {
         <>
           {selectedTab === tabs[0].id && <Info data={currentPatient} />}
           {selectedTab === tabs[1].id && (
-            <ClinicHis  tory data={currentPatient} />
+            <ClinicHistory data={currentPatient} />
           )}
           {selectedTab === tabs[2].id && <Odontogram data={currentPatient} />}
           {selectedTab === tabs[3].id && <Consent data={currentPatient} />}
